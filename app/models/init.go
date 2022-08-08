@@ -1,7 +1,7 @@
 package models
 
 import (
-	"gotodo/app/database"
+	"gotodo/app/config"
 
 	"gorm.io/gorm"
 )
@@ -9,5 +9,7 @@ import (
 var db *gorm.DB
 
 func init() {
-	db = database.Connect()
+	db = config.GetDB()
+
+	db.AutoMigrate(&Project{}, &Task{})
 }

@@ -1,4 +1,4 @@
-package database
+package config
 
 import (
 	"fmt"
@@ -12,7 +12,7 @@ import (
 	"gorm.io/gorm/schema"
 )
 
-func Connect() *gorm.DB {
+func GetDB() *gorm.DB {
 	var db *gorm.DB
 	var err error
 

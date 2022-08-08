@@ -29,9 +29,12 @@ func (t *Task) Update() error {
 func (t *Task) Delete() error {
 	return db.Delete(&t).Error
 }
-func (t *Task) Get() error {
-	return db.First(&t).Error
-}
-func (t *Tasks) List() error {
-	return db.Find(&t).Error
+func (t *Task) MarkAsDone() error {
+	done := true
+	if t.Done {
+		done = false
+	}
+
+	t.Done = done
+	return db.Model(&t).Select("Done").Updates(&t).Error
 }

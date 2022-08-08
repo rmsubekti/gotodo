@@ -32,3 +32,12 @@ func (p *Project) Get() error {
 func (p *Projects) List() error {
 	return db.Preload(clause.Associations).Find(&p).Error
 }
+
+func (p *Project) Archive() error {
+	archived := true
+	if p.Archived {
+		archived = false
+	}
+	p.Archived = archived
+	return db.Model(&p).Select("Archived").Updates(&p).Error
+}

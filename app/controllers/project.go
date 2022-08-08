@@ -77,7 +77,7 @@ var GetProject = func(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": project})
 }
 
-var ListProjects = func(c gin.Context) {
+var ListProjects = func(c *gin.Context) {
 	var projects models.Projects
 
 	if err := projects.List(); err != nil {
@@ -85,4 +85,22 @@ var ListProjects = func(c gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"data": projects})
+}
+
+var ArchiveAProject = func(c *gin.Context) {
+	var project models.Project
+	var id int
+	var err error
+
+	if id, err = strconv.Atoi(c.Param("project")); err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+	}
+
+	project.ID = uint(id)
+	if err := project.Archive(); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+	}
+
+	c.JSON(http.StatusOK, gin.H{"data": project})
+
 }
