@@ -43,7 +43,7 @@ func GetDB() *gorm.DB {
 				},
 			},
 		)
-		if err != nil {
+		if err == nil {
 			log.Println("Connected to database host.")
 			break
 		}

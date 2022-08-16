@@ -3,20 +3,30 @@ package controllers
 import (
 	"gotodo/app/models"
 	"net/http"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
 
 var CreateProject = func(c *gin.Context) {
 	var project models.Project
+	var user any
+	var ok bool
+
+	if user, ok = c.Get("user"); !ok {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": http.StatusInternalServerError})
+		return
+	}
 
 	if err := c.ShouldBindJSON(&project); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
+
+	project.UserId = user.(models.User).ID
 
 	if err := project.Create(); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
 	}
 
 	c.JSON(http.StatusOK, gin.H{"data": project})
@@ -24,20 +34,15 @@ var CreateProject = func(c *gin.Context) {
 
 var UpdateProject = func(c *gin.Context) {
 	var project models.Project
-	var id int
-	var err error
-
-	if id, err = strconv.Atoi(c.Param("project")); err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
-	}
 
 	if err := c.ShouldBindJSON(&project); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
 
-	project.ID = uint(id)
-	if err := project.Update(); err != nil {
+	if err := project.Update(c.Param("project")); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
 	}
 
 	c.JSON(http.StatusOK, gin.H{"data": project})
@@ -45,16 +50,10 @@ var UpdateProject = func(c *gin.Context) {
 
 var DeleteProject = func(c *gin.Context) {
 	var project models.Project
-	var id int
-	var err error
 
-	if id, err = strconv.Atoi(c.Param("project")); err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
-	}
-
-	project.ID = uint(id)
-	if err := project.Delete(); err != nil {
+	if err := project.Delete(c.Param("project")); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
 	}
 
 	c.JSON(http.StatusOK, gin.H{"data": true})
@@ -62,16 +61,10 @@ var DeleteProject = func(c *gin.Context) {
 
 var GetProject = func(c *gin.Context) {
 	var project models.Project
-	var id int
-	var err error
 
-	if id, err = strconv.Atoi(c.Param("project")); err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
-	}
-
-	project.ID = uint(id)
-	if err := project.Get(); err != nil {
+	if err := project.Get(c.Param("project")); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
 	}
 
 	c.JSON(http.StatusOK, gin.H{"data": project})
@@ -82,6 +75,7 @@ var ListProjects = func(c *gin.Context) {
 
 	if err := projects.List(); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
 	}
 
 	c.JSON(http.StatusOK, gin.H{"data": projects})
@@ -89,16 +83,10 @@ var ListProjects = func(c *gin.Context) {
 
 var ArchiveAProject = func(c *gin.Context) {
 	var project models.Project
-	var id int
-	var err error
 
-	if id, err = strconv.Atoi(c.Param("project")); err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
-	}
-
-	project.ID = uint(id)
-	if err := project.Archive(); err != nil {
+	if err := project.Archive(c.Param("project")); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
 	}
 
 	c.JSON(http.StatusOK, gin.H{"data": project})

@@ -11,5 +11,5 @@ var db *gorm.DB
 func init() {
 	db = config.GetDB()
 
-	db.AutoMigrate(&Project{}, &Task{})
+	db.AutoMigrate(&User{}, &Project{}, &Task{})
 }
