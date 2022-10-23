@@ -18,7 +18,7 @@ type Project struct {
 
 type Projects []Project
 
-func (p *Project) Create() error {
+func (p *Project) Create(userID string) error {
 	if len(p.Title) < 1 {
 		return errors.New("project title is required")
 	}
@@ -28,13 +28,15 @@ func (p *Project) Create() error {
 
 func (p *Project) Update(id string, userID string) error {
 
-	title := p.Title
+	project := &Project{}
+	*project = *p // copy value directly
 
 	if err := p.Get(id, userID); err != nil {
 		return err
 	}
 
-	return db.Model(&p).Updates(Project{Title: title}).Error
+	p.Title = project.Title
+	return db.Model(&p).Select("Title").Updates(&p).Error
 }
 
 func (p *Project) Delete(id string, userId string) error {
@@ -49,7 +51,10 @@ func (p *Project) Delete(id string, userId string) error {
 }
 
 func (p *Project) Get(id string, userId string) error {
-	return db.Preload(clause.Associations).First(&p, "id = ? and user_id = ?", id, userId).Error
+	if err := db.Preload(clause.Associations).First(&p, "id = ? and user_id = ?", id, userId).Error; err != nil {
+		return errors.New("you dont have access to this project")
+	}
+	return nil
 }
 
 func (p *Projects) List(userId string) error {

@@ -16,9 +16,7 @@ var CreateProject = func(c *gin.Context) {
 		return
 	}
 
-	project.UserId = user.(models.User).ID
-
-	if err := project.Create(); err != nil {
+	if err := project.Create(user.(models.User).ID); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
