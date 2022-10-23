@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "5fd8f318-d94a-4aa8-9591-ebdcc4630d99",
+		"_postman_id": "c1ade064-a1fe-4d74-81de-c3b64bc3fd28",
 		"name": "gotodo",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -138,14 +138,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/2GX4u5FPJIqCi3ScbDvC1nEbw0y",
+							"raw": "localhost:8080/api/{{Project}}",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"api",
-								"2GX4u5FPJIqCi3ScbDvC1nEbw0y"
+								"{{Project}}"
 							]
 						}
 					},
@@ -206,7 +206,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\":\"Project 1 edited\"\n}",
+							"raw": "{\n    \"title\":\"Project 1\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -214,14 +214,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/2GX4u5FPJIqCi3ScbDvC1nEbw0y",
+							"raw": "localhost:8080/api/{{Project}}",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"api",
-								"2GX4u5FPJIqCi3ScbDvC1nEbw0y"
+								"{{Project}}"
 							]
 						}
 					},
@@ -252,14 +252,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/2GX4u5FPJIqCi3ScbDvC1nEbw0y",
+							"raw": "localhost:8080/api/{{Project}}",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"api",
-								"2GX4u5FPJIqCi3ScbDvC1nEbw0y"
+								"{{Project}}"
 							]
 						}
 					},
@@ -290,14 +290,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/2GX4u5FPJIqCi3ScbDvC1nEbw0y",
+							"raw": "localhost:8080/api/{{Project}}",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"api",
-								"2GX4u5FPJIqCi3ScbDvC1nEbw0y"
+								"{{Project}}"
 							]
 						}
 					},
@@ -325,7 +325,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\":\"Task 1\",\n    \"priority\": 1,\n    \"deadline\":\"2021-02-18T21:54:42.123Z\"\n}",
+							"raw": "{\n    \"title\":\"Task 2\",\n    \"priority\": 1,\n    \"deadline\":\"2021-02-18T21:54:42.123Z\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -333,14 +333,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/2GX5370mIDVbHrBnpIQsvprkPPG/task",
+							"raw": "localhost:8080/api/{{Project}}/task",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"api",
-								"2GX5370mIDVbHrBnpIQsvprkPPG",
+								"{{Project}}",
 								"task"
 							]
 						}
@@ -364,7 +364,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\":\"Task 2\",\n    \"priority\": 1,\n    \"deadline\":\"2021-11-18T21:54:42.123Z\"\n}",
+							"raw": "{\n    \"title\":\"Task 2 edit\",\n    \"priority\": 1,\n    \"deadline\":\"2022-11-18T21:54:42.123Z\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -372,16 +372,16 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/2GX5370mIDVbHrBnpIQsvprkPPG/task/2GX75wrl9g2k0P7pe8phtfFz41K",
+							"raw": "localhost:8080/api/{{Project}}/task/2GXitlqM9bZ150bjpmRmbGBoAMO",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"api",
-								"2GX5370mIDVbHrBnpIQsvprkPPG",
+								"{{Project}}",
 								"task",
-								"2GX75wrl9g2k0P7pe8phtfFz41K"
+								"2GXitlqM9bZ150bjpmRmbGBoAMO"
 							]
 						}
 					},
@@ -412,14 +412,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/2GX5370mIDVbHrBnpIQsvprkPPG/task/2GX75wrl9g2k0P7pe8phtfFz41K",
+							"raw": "localhost:8080/api/{{Project}}/task/2GX75wrl9g2k0P7pe8phtfFz41K",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"api",
-								"2GX5370mIDVbHrBnpIQsvprkPPG",
+								"{{Project}}",
 								"task",
 								"2GX75wrl9g2k0P7pe8phtfFz41K"
 							]
@@ -440,7 +440,7 @@
 								}
 							]
 						},
-						"method": "PUT",
+						"method": "DELETE",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -452,14 +452,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/2GX5370mIDVbHrBnpIQsvprkPPG/task/2GX75wrl9g2k0P7pe8phtfFz41K",
+							"raw": "localhost:8080/api/{{Project}}/task/2GX75wrl9g2k0P7pe8phtfFz41K",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"api",
-								"2GX5370mIDVbHrBnpIQsvprkPPG",
+								"{{Project}}",
 								"task",
 								"2GX75wrl9g2k0P7pe8phtfFz41K"
 							]
@@ -521,7 +521,12 @@
 	"variable": [
 		{
 			"key": "Token",
-			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ1c2VyQGV4YW1wbGUuY29tIiwic3ViIjoiRXhhbXBsZSBVc2VyIiwiZXhwIjoxNjY2NTMyMzUwLCJpYXQiOjE2NjY1MjE1NTAsImp0aSI6IjJHWDNhOXlyenpDQ0o1aWFoZGVUZ2dhV0JYYSJ9.Hob4oouVQIz2PIEkEwDe2QET2NeyCR7KYCT6xB_XVqI",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ1c2VyQGV4YW1wbGUuY29tIiwic3ViIjoiRXhhbXBsZSBVc2VyIiwiZXhwIjoxNjY2NTQ4MDE0LCJpYXQiOjE2NjY1MzcyMTQsImp0aSI6IjJHWDNhOXlyenpDQ0o1aWFoZGVUZ2dhV0JYYSJ9.1efvvoiDbrAV1e5T1V82bvE9j4Hy95u011Rva0OjB8M",
+			"type": "default"
+		},
+		{
+			"key": "Project",
+			"value": "2GX5370mIDVbHrBnpIQsvprkPPG",
 			"type": "default"
 		}
 	]
