@@ -1,6 +1,8 @@
 package models
 
 import (
+	"errors"
+
 	"github.com/segmentio/ksuid"
 	"gorm.io/gorm/clause"
 )
@@ -17,38 +19,45 @@ type Project struct {
 type Projects []Project
 
 func (p *Project) Create() error {
+	if len(p.Title) < 1 {
+		return errors.New("project title is required")
+	}
 	p.ID = ksuid.New().String()
 	return db.Create(&p).Error
 }
 
-func (p *Project) Update(id string) error {
+func (p *Project) Update(id string, userID string) error {
 
 	title := p.Title
 
-	if err := p.Get(id); err != nil {
-		return nil
+	if err := p.Get(id, userID); err != nil {
+		return err
 	}
 
 	return db.Model(&p).Updates(Project{Title: title}).Error
 }
 
-func (p *Project) Delete(id string) error {
+func (p *Project) Delete(id string, userId string) error {
+	if err := p.Get(id, userId); err != nil {
+		return err
+	}
+
 	// Delete All task on this project
 	db.Delete(&Task{}, "ProjectID = ?", id)
 	//delete the project
 	return db.Delete(&p, "id = ?", id).Error
 }
 
-func (p *Project) Get(id string) error {
-	return db.Preload(clause.Associations).First(&p, "id = ?", id).Error
+func (p *Project) Get(id string, userId string) error {
+	return db.Preload(clause.Associations).First(&p, "id = ? and user_id = ?", id, userId).Error
 }
 
-func (p *Projects) List() error {
-	return db.Preload(clause.Associations).Find(&p).Error
+func (p *Projects) List(userId string) error {
+	return db.Preload(clause.Associations).Find(&p, "user_id = ?", userId).Error
 }
 
-func (p *Project) Archive(id string) error {
-	if err := p.Get(id); err != nil {
+func (p *Project) Archive(id string, userId string) error {
+	if err := p.Get(id, userId); err != nil {
 		return err
 	}
 

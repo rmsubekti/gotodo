@@ -9,13 +9,7 @@ import (
 
 var CreateProject = func(c *gin.Context) {
 	var project models.Project
-	var user any
-	var ok bool
-
-	if user, ok = c.Get("user"); !ok {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": http.StatusInternalServerError})
-		return
-	}
+	user, _ := c.Get("user")
 
 	if err := c.ShouldBindJSON(&project); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -34,13 +28,14 @@ var CreateProject = func(c *gin.Context) {
 
 var UpdateProject = func(c *gin.Context) {
 	var project models.Project
+	user, _ := c.Get("user") // User Session
 
 	if err := c.ShouldBindJSON(&project); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	if err := project.Update(c.Param("project")); err != nil {
+	if err := project.Update(c.Param("project"), user.(models.User).ID); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
@@ -50,8 +45,9 @@ var UpdateProject = func(c *gin.Context) {
 
 var DeleteProject = func(c *gin.Context) {
 	var project models.Project
+	user, _ := c.Get("user") // User Session
 
-	if err := project.Delete(c.Param("project")); err != nil {
+	if err := project.Delete(c.Param("project"), user.(models.User).ID); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
@@ -61,8 +57,9 @@ var DeleteProject = func(c *gin.Context) {
 
 var GetProject = func(c *gin.Context) {
 	var project models.Project
+	user, _ := c.Get("user") // User Session
 
-	if err := project.Get(c.Param("project")); err != nil {
+	if err := project.Get(c.Param("project"), user.(models.User).ID); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
@@ -72,8 +69,9 @@ var GetProject = func(c *gin.Context) {
 
 var ListProjects = func(c *gin.Context) {
 	var projects models.Projects
+	user, _ := c.Get("user")
 
-	if err := projects.List(); err != nil {
+	if err := projects.List(user.(models.User).ID); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
@@ -83,8 +81,9 @@ var ListProjects = func(c *gin.Context) {
 
 var ArchiveAProject = func(c *gin.Context) {
 	var project models.Project
+	user, _ := c.Get("user") // User Session
 
-	if err := project.Archive(c.Param("project")); err != nil {
+	if err := project.Archive(c.Param("project"), user.(models.User).ID); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}

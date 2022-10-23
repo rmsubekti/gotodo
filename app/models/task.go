@@ -9,7 +9,7 @@ import (
 type Task struct {
 	ID        string     `gorm:"type:varchar(30);primarykey:true;not null;unique" json:"id"`
 	Title     string     `gorm:"type:varchar(150)" json:"title"`
-	Priority  string     `gorm:"type:char(1);default:'0'" json:"priority"`
+	Priority  int        `gorm:"type:decimal;default:0" json:"priority"`
 	Deadline  *time.Time `gorm:"default:null" json:"deadline" time_format:"sql_date"`
 	Done      bool       `gorm:"default:false" json:"done"`
 	ProjectId string     `json:"project_id"`

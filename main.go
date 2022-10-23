@@ -11,20 +11,20 @@ import (
 func main() {
 	route := gin.Default()
 
-	app := route.Group("/app")
+	app := route.Group("/api")
 	app.Use(middlewares.Auth())
 	{
 		app.GET("/", controllers.ListProjects)
 		app.POST("/", controllers.CreateProject)
 		app.GET("/:project", controllers.GetProject)
 		app.POST("/:project", controllers.UpdateProject)
-		app.PUT("/:project/archive", controllers.ArchiveAProject)
+		app.PUT("/:project", controllers.ArchiveAProject)
 		app.DELETE("/:project", controllers.DeleteProject)
 
-		app.POST("/:project/tasks", controllers.CreateTask)
-		app.POST("/:project/tasks/:task", controllers.UpdateTask)
-		app.PUT("/:project/tasks/:task", controllers.MarkAsDone)
-		app.DELETE("/:project/tasks/:task", controllers.DeleteTask)
+		app.POST("/:project/task", controllers.CreateTask)
+		app.POST("/:project/task/:task", controllers.UpdateTask)
+		app.PUT("/:project/task/:task", controllers.MarkAsDone)
+		app.DELETE("/:project/task/:task", controllers.DeleteTask)
 	}
 	auth := route.Group("/auth")
 	{

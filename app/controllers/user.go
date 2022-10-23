@@ -16,7 +16,7 @@ var UserLogin = func(c *gin.Context) {
 	}
 
 	if err := user.Login(user.Email, user.Password); err != nil {
-		c.JSON(http.StatusNoContent, gin.H{"error": err.Error()})
+		c.JSON(http.StatusNotAcceptable, gin.H{"error": err.Error()})
 		return
 	}
 

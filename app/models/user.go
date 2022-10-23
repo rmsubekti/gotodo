@@ -15,6 +15,15 @@ type User struct {
 }
 
 func (u *User) Register() error {
+
+	if len(u.Name) < 1 {
+		return errors.New("name is required")
+	}
+
+	if len(u.Password) <= 8 {
+		return errors.New("password at least have 8 or more characters")
+	}
+
 	u.ID = ksuid.New().String()
 
 	// save hashed password to db
