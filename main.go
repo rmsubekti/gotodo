@@ -15,8 +15,8 @@ func main() {
 	app.Use(middlewares.Auth())
 	{
 		app.GET("/", controllers.ListProjects)
-		app.GET("/:project", controllers.GetProject)
 		app.POST("/", controllers.CreateProject)
+		app.GET("/:project", controllers.GetProject)
 		app.POST("/:project", controllers.UpdateProject)
 		app.PUT("/:project/archive", controllers.ArchiveAProject)
 		app.DELETE("/:project", controllers.DeleteProject)
